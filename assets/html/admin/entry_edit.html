@@ -1,0 +1,25 @@
+<form method="post" action="admin.php?page=collapsing_content&task={{task}}{{id}}">
+    <div>
+        <label for="title">Title:</label>
+        <input class="text_area" type="text" id="title" name="title" value="{{title}}">
+    </div>
+    <div>
+        <label for="title">Subtitle:</label>
+        <input class="text_area" type="text" id="subtitle" name="subtitle" value="{{subtitle}}">
+    </div>
+    <div class="select-container">
+        Selected Template:
+        <select name="template" id="template-select">{{available_templates}}</select>
+    </div>
+    <label id="using_post-container" style="display: {{using_post_visibility}}"><input type="checkbox" id="using_post-checkbox" name="using_post" {{using_post}}/> Display Post as Content?</label>
+    <div class="select-container" id="post-select-container" style="display:{{post_select_display}}">
+        Select Post:
+        <select name="post_id" id="post-select"><option disabled selected>Select Post</option>{{available_posts}}</select>
+    </div>
+    <div class="edit-above-entries" style="display: {{content_editing_visibility}}">{{above_entries}}</div>
+    <div class="child-entries">{{entries}}</div>
+    <div class="edit-below-entries" style="display: {{content_editing_visibility}}">{{below_entries}}</div>
+    <input type="hidden" value="{{action}}" name="action"/>
+    <input type="hidden" value="{{parent}}" name="parent"/>
+    <input type="submit" value="Save Entry" id="save-buttom" class="button button-primary button-large">
+</form>
