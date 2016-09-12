@@ -1,9 +1,9 @@
 <?php
 /*
-   Plugin Name: Collapsing Content
-   Plugin URI: http://wordpress.org/extend/plugins/rules-regulations/
-   Version: 0.6.0
-   Author: Axolotl Interactive
+   Plugin Name: Countdown
+   Plugin URI: https://github.com/PomeloProductions/countdown
+   Version: 0.1.0
+   Author: Pomelo Productions
    Description: 
    Text Domain: countdown
    License: GPLv3
