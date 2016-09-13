@@ -1,6 +1,6 @@
 <?php
 /*
-   Plugin Name: Countdown
+   Plugin Name: Countdown Timer
    Plugin URI: https://github.com/PomeloProductions/countdown
    Version: 0.1.0
    Author: Pomelo Productions
