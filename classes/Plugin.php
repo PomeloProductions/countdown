@@ -42,7 +42,7 @@ class Plugin extends LifeCycle {
     }
 
     protected function getMainPluginFileName() {
-        return 'countdown.php';
+        return 'timer.php';
     }
 
     protected function getPluginDir() {
