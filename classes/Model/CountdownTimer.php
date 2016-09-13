@@ -15,13 +15,6 @@ use WordWrap\ORM\BaseModel;
 class CountdownTimer extends BaseModel{
 
     /**
-     * @var string[] all available templates
-     */
-    public static $availableTemplates = [
-        "simple", "nested"
-    ];
-
-    /**
      * @var int the primary id of this entry
      */
     public $id;
