@@ -59,6 +59,12 @@ class CountdownTimer extends BaseModel{
     }
 
     /**
+     * Calls the parent function to install any tables that are needed
+     */
+    public static function install_table(){
+        parent::installTable();
+    }
+    /**
      * Get an array of fields to search during a search query.
      *
      * @return array
@@ -77,8 +83,7 @@ class CountdownTimer extends BaseModel{
         return [
             "title" => "TEXT",
             "subtitle" => "TEXT",
-            "countdown_end_time" => "DATETIME",
-            "deleted_at" => "DATETIME"
+            "countdown_end_time" => "DATETIME"
         ];
     }
 
@@ -89,7 +94,6 @@ class CountdownTimer extends BaseModel{
         $SQL = "SELECT * FROM `" . static::getTableName() . "` WHERE `deleted_at` IS NULL";
 
         global $wpdb;
-
         $rows = $wpdb->get_results($SQL, ARRAY_A);
 
         $timers = [];
