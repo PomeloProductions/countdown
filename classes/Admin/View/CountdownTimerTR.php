@@ -12,7 +12,7 @@ use WordWrap\Assets\View\View;
 class CountdownTimerTR extends View{
 
     public function __construct($lifeCycle, $id, $name) {
-        parent::__construct($lifeCycle, "admin/countdown_timer_tr");
+        parent::__construct($lifeCycle, "countdown_tr");
 
         $this->setTemplateVar("id", $id);
         $this->setTemplateVar("name", $name);
