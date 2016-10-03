@@ -57,7 +57,7 @@ class Plugin extends LifeCycle {
      * (2) make table names lower case only
      * @return void
      */
-    public function installDatabaseTables() {
+    public function installDatabase() {
         CountdownTimer::install_table();
     }
 
