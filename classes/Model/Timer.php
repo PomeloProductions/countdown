@@ -55,15 +55,9 @@ class Timer extends BaseModel{
      * @return string
      */
     public static function getTableName(){
-        return "wp_countdown_timers";
+        return "countdown_timers";
     }
 
-    /**
-     * Calls the parent function to install any tables that are needed
-     */
-    public static function install_table(){
-        parent::installTable();
-    }
     /**
      * Get an array of fields to search during a search query.
      *
