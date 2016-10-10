@@ -10,7 +10,7 @@ use WordWrap\Admin\TaskController;
  * Date: 9/12/15
  * Time: 12:47 PM
  */
-class ViewEntries extends TaskController {
+class ViewTimers extends TaskController {
 
     private $countdownTimers = [];
 
