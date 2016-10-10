@@ -58,7 +58,7 @@ class Plugin extends LifeCycle {
      * @return void
      */
     public function installDatabase() {
-        Timer::install_table();
+        Timer::installTable();
     }
 
     /**
