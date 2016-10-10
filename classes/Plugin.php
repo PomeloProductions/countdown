@@ -1,7 +1,6 @@
 <?php
 namespace Countdown;
 
-use Countdown\Model\Timer;
 use WordWrap\LifeCycle;
 
 class Plugin extends LifeCycle {
@@ -47,18 +46,6 @@ class Plugin extends LifeCycle {
 
     protected function getPluginDir() {
         return dirname(__FILE__);
-    }
-
-    /**
-     * See: http://plugin.michael-simpson.com/?page_id=101
-     * Called by install() to create any database tables if needed.
-     * Best Practice:
-     * (1) Prefix all table names with $wpdb->prefix
-     * (2) make table names lower case only
-     * @return void
-     */
-    public function installDatabase() {
-        Timer::installTable();
     }
 
     /**

@@ -21,6 +21,11 @@
         "className" : "ShortCode"
       }
     ],
+    "Model" : [
+      {
+        "className" : "Model\\Timer"
+      }
+    ],
     "optionsPrefix" : "countdown"
   }
 }
