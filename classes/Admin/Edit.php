@@ -9,8 +9,8 @@
 namespace countdown\Admin;
 
 
-use Countdown\Admin\View\EntriesContainer;
-use Countdown\Model\Entry;
+use Countdown\Admin\View\CountdownTimerContainer;
+use Countdown\Model\Timer;
 use WordWrap\Admin\TaskController;
 use WordWrap\Assets\View\Editor;
 use WordWrap\Assets\View\View;
@@ -19,9 +19,9 @@ use WP_Query;
 class Edit extends TaskController{
 
     /**
-     * @var Entry the entry that is currently being edited
+     * @var Timer the timer that is currently being edited
      */
-    private $entry;
+    private $timer;
 
     /**
      * @var string the action the user is attempting to carry out
@@ -36,7 +36,7 @@ class Edit extends TaskController{
         if(!isset($_GET["id"]) || $_GET["id"] == "")
             wp_redirect("admin.php?page=countdown&task=view");
 
-        $this->entry = Entry::find_one($_GET["id"]);
+        $this->timer = Timer::find_one($_GET["id"]);
 
         if($action)
             $this->handlePost();
@@ -48,36 +48,36 @@ class Edit extends TaskController{
      */
     protected function handlePost() {
 
-        if(!$this->entry)
-            $this->entry = Entry::create([]);
+        if(!$this->timer)
+            $this->timer = Timer::create([]);
 
         if (isset($_POST["title"]))
-            $this->entry->title = $_POST["title"];
+            $this->timer->title = $_POST["title"];
         if (isset($_POST["subtitle"]))
-            $this->entry->subtitle = $_POST["subtitle"];
-        if (isset($_POST["above_entries"]))
-            $this->entry->top_content = $_POST["above_entries"];
-        if (isset($_POST["below_entries"]))
-            $this->entry->bottom_content = $_POST["below_entries"];
+            $this->timer->subtitle = $_POST["subtitle"];
+        if (isset($_POST["above_timers"]))
+            $this->timer->top_content = $_POST["above_timers"];
+        if (isset($_POST["below_timers"]))
+            $this->timer->bottom_content = $_POST["below_timers"];
         if (isset($_POST["template"]))
-            $this->entry->setTemplate($_POST["template"]);
+            $this->timer->setTemplate($_POST["template"]);
         if (isset($_POST["parent"]) && $_POST["parent"] != "")
-            $this->entry->parent_id = $_POST["parent"];
+            $this->timer->parent_id = $_POST["parent"];
 
         if (isset($_POST["using_post"]))
-            $this->entry->using_post = $_POST["using_post"] == "on";
+            $this->timer->using_post = $_POST["using_post"] == "on";
         else
-            $this->entry->using_post = false;
+            $this->timer->using_post = false;
 
         if (isset($_POST["post_id"]))
-            $this->entry->post_id = $_POST["post_id"];
+            $this->timer->post_id = $_POST["post_id"];
 
-        $this->entry->save();
+        $this->timer->save();
 
-        if ($this->entry->getParent())
-            header("Location: admin.php?page=countdown&task=edit_entry&id=" . $this->entry->getParent()->id);
+        if ($this->timer->getParent())
+            header("Location: admin.php?page=countdown&task=edit_timer&id=" . $this->timer->getParent()->id);
         else
-            header("Location: admin.php?page=countdown&task=view_entries");
+            header("Location: admin.php?page=countdown&task=view_timers");
     }
 
     /**
@@ -85,7 +85,7 @@ class Edit extends TaskController{
      */
     public function renderMainContent() {
 
-        $view = new View($this->lifeCycle, "admin/entry_edit");
+        $view = new View($this->lifeCycle, "admin/timer_edit");
 
         $view->setTemplateVar("task", $this->task->getSlug());
 
@@ -95,39 +95,39 @@ class Edit extends TaskController{
         $title = "";
         $subtitle = "";
         $id = "";
-        $aboveEntries = "";
-        $belowEntries = "";
+        $aboveTimers = "";
+        $belowTimers = "";
         $usingPost = false;
         $postSelectDisplay = "none";
         $contentEditingDisplay = "block";
         $usingPostDisplay = "block";
 
-        $childrenEntries = [];
+        $childrenTimers = [];
 
         $parent = null;
 
-        if(isset($this->entry)) {
-            $title = $this->entry->title;
-            $subtitle = $this->entry->subtitle;
-            $id = "&id=" . $this->entry->id;
-            $aboveEntries = $this->entry->top_content;
-            $belowEntries = $this->entry->bottom_content;
-            $usingPost = $this->entry->using_post;
+        if(isset($this->timer)) {
+            $title = $this->timer->title;
+            $subtitle = $this->timer->subtitle;
+            $id = "&id=" . $this->timer->id;
+            $aboveTimers = $this->timer->top_content;
+            $belowTimers = $this->timer->bottom_content;
+            $usingPost = $this->timer->using_post;
 
-            $childrenEntries = $this->entry->getChildren();
+            $childrenTimers = $this->timer->getChildren();
 
-            if($this->entry->getParent())
-                $parent = $this->entry->getParent()->id;
+            if($this->timer->getParent())
+                $parent = $this->timer->getParent()->id;
         }
 
         if(isset($_POST["title"]))
             $title = $_POST["title"];
         if(isset($_POST["subtitle"]))
             $subtitle = $_POST["subtitle"];
-        if(isset($_POST["above_entries"]))
-            $aboveEntries = $_POST["above_entries"];
-        if(isset($_POST["below_entries"]))
-            $belowEntries = $_POST["below_entries"];
+        if(isset($_POST["above_timers"]))
+            $aboveTimers = $_POST["above_timers"];
+        if(isset($_POST["below_timers"]))
+            $belowTimers = $_POST["below_timers"];
         if (isset($_POST["using_post"]))
             $usingPost = $_POST["using_post"] == "on";
 
@@ -136,7 +136,7 @@ class Edit extends TaskController{
             $contentEditingDisplay = "none";
         }
 
-        if (isset($this->entry) && $this->entry->template == "nested") {
+        if (isset($this->timer) && $this->timer->template == "nested") {
             $usingPostDisplay = "none";
             $postSelectDisplay = "none";
             $contentEditingDisplay = "none";
@@ -155,16 +155,16 @@ class Edit extends TaskController{
         $view->setTemplateVar("subtitle", $subtitle);
         $view->setTemplateVar("id", $id);
 
-        $aboveEditor = new Editor($this->lifeCycle, "above_entries", $aboveEntries, "Above Children Entries");
+        $aboveEditor = new Editor($this->lifeCycle, "above_timers", $aboveTimers, "Above Children Timers");
         $aboveEditor->setHeight(200);
-        $view->setTemplateVar("above_entries", $aboveEditor->export());
+        $view->setTemplateVar("above_timers", $aboveEditor->export());
 
-        $belowEditor = new Editor($this->lifeCycle, "below_entries", $belowEntries, "Below Children Entries");
+        $belowEditor = new Editor($this->lifeCycle, "below_timers", $belowTimers, "Below Children Timers");
         $belowEditor->setHeight(200);
-        $view->setTemplateVar("below_entries", $belowEditor->export());
+        $view->setTemplateVar("below_timers", $belowEditor->export());
 
-        $entriesContainer = new EntriesContainer($this->lifeCycle, $childrenEntries, $this->entry);
-        $view->setTemplateVar("entries", $entriesContainer->export());
+        $timersContainer = new CountdownTimerContainer($this->lifeCycle, $childrenTimers, $this->timer);
+        $view->setTemplateVar("timers", $timersContainer->export());
 
         $view->setTemplateVar("action", $this->action);
         if($parent)
@@ -180,12 +180,12 @@ class Edit extends TaskController{
      */
     private function renderAvailableTemplates() {
 
-        $availableTemplates = Entry::$availableTemplates;
+        $availableTemplates = Timer::$availableTemplates;
         $selectedTemplate = "simple";
         $optionsContent = "";
 
-        if (isset($this->entry))
-            $selectedTemplate = $this->entry->getTemplate();
+        if (isset($this->timer))
+            $selectedTemplate = $this->timer->getTemplate();
         if (isset($_POST["template"]))
             $selectedTemplate = $_POST["template"];
 
@@ -227,8 +227,8 @@ class Edit extends TaskController{
         $selectedPost = 0;
         $optionsContent = "";
 
-        if (isset($this->entry))
-            $selectedPost = $this->entry->post_id;
+        if (isset($this->timer))
+            $selectedPost = $this->timer->post_id;
         if (isset($_POST["post_id"]))
             $selectedPost = $_POST["post_id"];
 
@@ -255,8 +255,8 @@ class Edit extends TaskController{
     public function getTaskName() {
         $taskName = parent::getTaskName();
 
-        if(isset($this->entry) && $this->entry->id)
-            $taskName .= " #" . $this->entry->id;
+        if(isset($this->timer) && $this->timer->id)
+            $taskName .= " #" . $this->timer->id;
 
         return $taskName;
     }

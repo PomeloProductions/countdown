@@ -15,17 +15,17 @@ use WordWrap\ORM\BaseModel;
 class Timer extends BaseModel{
 
     /**
-     * @var int the primary id of this entry
+     * @var int the primary id of this timer
      */
     public $id;
 
     /**
-     * @var string the title of this entry
+     * @var string the title of this timer
      */
     public $title;
 
     /**
-     * @var string the subtitle of this entry
+     * @var string the subtitle of this timer
      */
     public $subtitle;
 

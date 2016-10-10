@@ -9,7 +9,7 @@
 namespace Countdown\Admin;
 
 
-use Countdown\Model\Entry;
+use Countdown\Model\Timer;
 use WordWrap\Admin\TaskController;
 
 class Delete extends TaskController {
@@ -22,16 +22,16 @@ class Delete extends TaskController {
         $id = isset($_GET["id"]) ? $_GET["id"] : false;
 
         if(!$id)
-            header("Location: admin.php?page=countdown&task=view_entries");
+            header("Location: admin.php?page=countdown&task=view_timers");
 
-        $entry = Entry::find_one($id);
+        $timer = Timer::find_one($id);
 
-        $entry->delete();
+        $timer->delete();
 
-        if($entry->getParent())
-            header("Location: admin.php?page=countdown&task=edit_entry&id=" . $entry->getParent()->id);
+        if($timer->getParent())
+            header("Location: admin.php?page=countdown&task=edit_timer&id=" . $timer->getParent()->id);
         else
-            header("Location: admin.php?page=countdown&task=view_entries");
+            header("Location: admin.php?page=countdown&task=view_timers");
     }
 
     /**
