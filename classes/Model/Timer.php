@@ -35,20 +35,6 @@ class Timer extends BaseModel{
     public $countdown_end_time;
 
     /**
-     * @var DateTime when the object was deleted
-     */
-    public $deleted_at = null;
-
-    /**
-     * Overrides parent function sets this objects deleted at field to be now, and then saves
-     */
-    public function delete() {
-        $this->deleted_at = new DateTime();
-
-        $this->save();
-    }
-
-    /**
      * Overwrite this in your concrete class. Returns the table name used to
      * store models of this class.
      *
