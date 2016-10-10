@@ -25,7 +25,7 @@ class ShortCode extends ShortCodeScriptLoader{
     public function handleShortcode($atts) {
 
         if (!isset($atts["id"]))
-            $timers = Timer::fetchAll();
+            $timers = Timer::all();
         else
             $timers = [Timer::find_one($atts["id"])];
 

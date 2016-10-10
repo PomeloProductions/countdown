@@ -67,20 +67,4 @@ class Timer extends BaseModel{
         ];
     }
 
-    /**
-     * @return Timer[] all countdown timers in the countdown table
-     */
-    public static function fetchAll(){
-        $SQL = "SELECT * FROM `" . static::getTableName() . "` WHERE `deleted_at` IS NULL";
-
-        global $wpdb;
-        $rows = $wpdb->get_results($SQL, ARRAY_A);
-
-        $timers = [];
-        foreach($rows as $row) {
-            $timers[] = new Timer($row);
-        }
-
-        return $timers;
-    }
 }

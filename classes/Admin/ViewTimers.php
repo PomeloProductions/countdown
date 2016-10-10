@@ -19,7 +19,7 @@ class ViewTimers extends TaskController {
      * @param $action null|string the action that is being processed
      */
     public function processRequest($action = null) {
-        $this->countdownTimers = Timer::fetchAll();
+        $this->countdownTimers = Timer::All();
     }
 
     /**
