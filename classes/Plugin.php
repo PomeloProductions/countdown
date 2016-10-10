@@ -1,7 +1,7 @@
 <?php
 namespace Countdown;
 
-use Countdown\Model\CountdownTimer;
+use Countdown\Model\Timer;
 use WordWrap\LifeCycle;
 
 class Plugin extends LifeCycle {
@@ -58,7 +58,7 @@ class Plugin extends LifeCycle {
      * @return void
      */
     public function installDatabase() {
-        CountdownTimer::install_table();
+        Timer::install_table();
     }
 
     /**

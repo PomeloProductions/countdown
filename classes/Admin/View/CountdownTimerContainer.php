@@ -9,7 +9,7 @@
 namespace Countdown\Admin\View;
 
 
-use Countdown\Model\CountdownTimer;
+use Countdown\Model\Timer;
 use WordWrap\Assets\View\ViewCollection;
 use WordWrap\LifeCycle;
 
@@ -17,7 +17,7 @@ class CountdownTimerContainer extends ViewCollection {
 
     /**
      * @param LifeCycle $lifeCycle
-     * @param CountdownTimer[] $countdowns
+     * @param Timer[] $countdowns
      */
     public function __construct(LifeCycle $lifeCycle, $countdowns) {
         parent::__construct($lifeCycle, "countdown_container");

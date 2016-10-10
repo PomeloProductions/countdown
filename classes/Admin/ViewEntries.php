@@ -1,7 +1,7 @@
 <?php
 namespace Countdown\Admin;
 use Countdown\Admin\View\CountdownTimerContainer;
-use Countdown\Model\CountdownTimer;
+use Countdown\Model\Timer;
 use WordWrap\Admin\TaskController;
 
 /**
@@ -19,7 +19,7 @@ class ViewEntries extends TaskController {
      * @param $action null|string the action that is being processed
      */
     public function processRequest($action = null) {
-        $this->countdownTimers = CountdownTimer::fetchAll();
+        $this->countdownTimers = Timer::fetchAll();
     }
 
     /**

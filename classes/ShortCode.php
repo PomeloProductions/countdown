@@ -9,7 +9,7 @@
 namespace Countdown;
 
 
-use Countdown\Model\CountdownTimer;
+use Countdown\Model\Timer;
 use stdClass;
 use WordWrap\Assets\BaseAsset;
 use WordWrap\Assets\Template\Mustache\MustacheTemplate;
@@ -25,9 +25,9 @@ class ShortCode extends ShortCodeScriptLoader{
     public function handleShortcode($atts) {
 
         if (!isset($atts["id"]))
-            $entries = CountdownTimer::fetchAll();
+            $entries = Timer::fetchAll();
         else
-            $entries = [CountdownTimer::find_one($atts["id"])];
+            $entries = [Timer::find_one($atts["id"])];
 
         return $entries;
     }

@@ -12,7 +12,7 @@ namespace Countdown\Model;
 use DateTime;
 use WordWrap\ORM\BaseModel;
 
-class CountdownTimer extends BaseModel{
+class Timer extends BaseModel{
 
     /**
      * @var int the primary id of this entry
@@ -55,7 +55,7 @@ class CountdownTimer extends BaseModel{
      * @return string
      */
     public static function getTableName(){
-        return "wp_countdown_timer_entries";
+        return "wp_countdown_timers";
     }
 
     /**
@@ -88,7 +88,7 @@ class CountdownTimer extends BaseModel{
     }
 
     /**
-     * @return CountdownTimer[] all countdown timers in the countdown table
+     * @return Timer[] all countdown timers in the countdown table
      */
     public static function fetchAll(){
         $SQL = "SELECT * FROM `" . static::getTableName() . "` WHERE `deleted_at` IS NULL";
@@ -98,7 +98,7 @@ class CountdownTimer extends BaseModel{
 
         $timers = [];
         foreach($rows as $row) {
-            $timers[] = new CountdownTimer($row);
+            $timers[] = new Timer($row);
         }
 
         return $timers;
