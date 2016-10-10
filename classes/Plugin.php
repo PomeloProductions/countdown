@@ -113,8 +113,6 @@ class Plugin extends LifeCycle {
 
         // Register short codes
         // http://plugin.michael-simpson.com/?page_id=39
-        $sc = new ShortCode($this);
-        $sc->register('countdown');
 
 
         // Register AJAX hooks

@@ -15,46 +15,12 @@
         "location" : "assets/mustache"
       }
     ],
-//    "Admin" : {
-//      "RequiredAssets" : [
-//        {
-//          "type" : "css",
-//          "name" : "admin"
-//        }, {
-//          "type" : "js",
-//          "name" : "admin"
-//        }
-//      ],
-//      "Page" : [
-//        {
-//          "name" : "Countdown",
-//          "icon" : "dashicons-clock",
-//          "capability" : "manage_options",
-//          "position" : 21,
-//          "Task" : [
-//            {
-//              "name" : "View Timers",
-//              "className" : "\\Admin\\ViewTimers",
-//              "default" : true
-//            },
-//            {
-//              "name" : "Edit Timer",
-//              "className" : "\\Admin\\Edit",
-//              "actions" : ["edit"]
-//            },
-//            {
-//              "name" : "Create Timer",
-//              "className" : "\\Admin\\Create",
-//              "actions" : ["create"]
-//            },
-//            {
-//              "name" : "Delete",
-//              "className" : "\\Admin\\Delete"
-//            }
-//          ]
-//        }
-//      ]
-//    },
+    "ShortCode" : [
+      {
+        "name" : "countdown",
+        "className" : "ShortCode"
+      }
+    ],
     "optionsPrefix" : "countdown"
   }
 }
