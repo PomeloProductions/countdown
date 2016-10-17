@@ -35,6 +35,11 @@ class Timer extends BaseModel{
     public $countdown_end_time;
 
     /**
+     * @var array $dateTimeFields overrides parent $dateTimeFields with countdown timer
+     */
+    protected $dateTimeFields = ["countdown_end_time"];
+
+    /**
      * Overwrite this in your concrete class. Returns the table name used to
      * store models of this class.
      *
