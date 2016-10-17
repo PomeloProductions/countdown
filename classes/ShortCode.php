@@ -32,6 +32,10 @@ class ShortCode extends ShortCodeLoader{
 
         $timer = Timer::find_one($atts["id"]);
 
+        if(!$timer){
+            throw new Exception('No timers found with that ID');
+        }
+
         $timerCollection = $this->buildTimer($timer);
 
         return $timerCollection->export();
@@ -47,7 +51,6 @@ class ShortCode extends ShortCodeLoader{
     private function buildTimerTemplate($timer){
         $collection = new ViewCollection($this->lifeCycle, 'front_end-entry', 'mustache');
 
-        $collection->setTemplateVar("title", $timer->title);
         $collection->setTemplateVar("countdown_end_time", $timer->countdown_end_time);
 
         return $collection;
