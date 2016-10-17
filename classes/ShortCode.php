@@ -39,9 +39,7 @@ class ShortCode extends ShortCodeLoader{
 
         $formattedTimerDiffString = $this->formatDate($timer);
 
-        $collection = new ViewCollection($this->lifeCycle, 'front_end-entry', 'mustache');
-
-        $collection->setTemplateVar("countdown_end_time", $formattedTimerDiffString);
+        $collection = new MustacheTemplate($this->lifeCycle, 'front_end-entry', ['countdown_end_time' => $formattedTimerDiffString]);
 
         return $collection->export();
     }
