@@ -54,7 +54,7 @@ class ShortCode extends ShortCodeLoader{
         $timeLeft = $currentDate->diff($endDate);
 
         switch($timeLeft){
-            case $timeLeft->format('%y') > 0:
+            case $timeLeft->format('%R%y') > 0:
 
                 $countDownTimeLeft = $timeLeft->format('%y') . ' year';
 
@@ -72,7 +72,7 @@ class ShortCode extends ShortCodeLoader{
 
                 return ( $countDownTimeLeft . ' left');
                 break;
-            case $timeLeft->format('%m') > 0:
+            case $timeLeft->format('%R%m') > 0:
 
                 $countDownTimeLeft = $timeLeft->format('%m');
 
@@ -90,7 +90,7 @@ class ShortCode extends ShortCodeLoader{
 
                 return $countDownTimeLeft . ' left';
                 break;
-            case $timeLeft->format('%d') > 0:
+            case $timeLeft->format('%R%d') > 0:
 
                 $countDownTimeLeft = $timeLeft->format('%d');
 
@@ -108,7 +108,7 @@ class ShortCode extends ShortCodeLoader{
 
                 return ( $countDownTimeLeft . ' left');
                 break;
-            case $timeLeft->format('%H') > 0:
+            case $timeLeft->format('%R%H') > 0:
                 $countDownTimeLeft = $timeLeft->format('%H');
 
                 if($timeLeft->format('%H') > 1){
@@ -126,7 +126,7 @@ class ShortCode extends ShortCodeLoader{
 
                 return ($countDownTimeLeft . ' left');
                 break;
-            case $timeLeft->format('%i') > 0:
+            case $timeLeft->format('%R%i') > 0:
 
                 $countDownTimeLeft = $timeLeft->format('%i');
 
@@ -143,7 +143,7 @@ class ShortCode extends ShortCodeLoader{
                 }
                 return($countDownTimeLeft . ' left');
                 break;
-            case $timeLeft->format('%s') > 0:
+            case $timeLeft->format('%R%s') > 0:
                 return ($countDownTimeLeft = $timeLeft->format('%s') . ' seconds left');
             default:
                 return '';
