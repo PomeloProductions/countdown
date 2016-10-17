@@ -43,8 +43,6 @@ class ShortCode extends ShortCodeLoader{
 
         $collection->setTemplateVar("countdown_end_time", $formattedTimerDiffString);
 
-
-
         return $collection->export();
     }
 
