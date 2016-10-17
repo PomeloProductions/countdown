@@ -10,6 +10,7 @@ namespace Countdown;
 
 
 use Countdown\Model\Timer;
+use DateTime;
 use Exception;
 use stdClass;
 use WordWrap\Assets\BaseAsset;
@@ -36,25 +37,119 @@ class ShortCode extends ShortCodeLoader{
             throw new Exception('No timers found with that ID');
         }
 
-        $timerCollection = $this->buildTimer($timer);
+        $formattedTimerDiffString = $this->formatDate($timer);
 
-        return $timerCollection->export();
-    }
-
-    private function buildTimer($timer){
-
-        $timerCollection = $this->buildTimerTemplate($timer);
-
-        return $timerCollection;
-    }
-
-    private function buildTimerTemplate($timer){
         $collection = new ViewCollection($this->lifeCycle, 'front_end-entry', 'mustache');
 
-        $collection->setTemplateVar("countdown_end_time", $timer->countdown_end_time);
+        $collection->setTemplateVar("countdown_end_time", $formattedTimerDiffString);
 
-        return $collection;
+
+
+        return $collection->export();
     }
+
+    private function formatDate($timer){
+        $endDate = new DateTime($timer->countdown_end_time);
+        $currentDate = new DateTime("now");
+        $timeLeft = $currentDate->diff($endDate);
+
+        switch($timeLeft){
+            case $timeLeft->format('%y') > 0:
+
+                $countDownTimeLeft = $timeLeft->format('%y') . ' year';
+
+                if($timeLeft->format('%m') > 1){
+                    $countDownTimeLeft = $countDownTimeLeft. ' '.  $timeLeft->format('%m') .' months ';
+                }elseif($timeLeft->format('%m') == 1){
+                    $countDownTimeLeft = $countDownTimeLeft. ' '.  $timeLeft->format('%m') .  ' month ';
+                }
+
+                if($timeLeft->format('%d') > 1){
+                    $countDownTimeLeft = $countDownTimeLeft . $timeLeft->format('%d'). ' days';
+                }elseif($timeLeft->format('%d') == 1){
+                    $countDownTimeLeft = $countDownTimeLeft . $timeLeft->format('%d'). ' day';
+                }
+
+                return ( $countDownTimeLeft . ' left');
+                break;
+            case $timeLeft->format('%m') > 0:
+
+                $countDownTimeLeft = $timeLeft->format('%m');
+
+                if($timeLeft->format('%m') > 1){
+                    $countDownTimeLeft = $countDownTimeLeft.  ' months ';
+                }else{
+                    $countDownTimeLeft = $countDownTimeLeft.  ' month ';
+                }
+
+                if($timeLeft->format('%d') > 1){
+                    $countDownTimeLeft = $countDownTimeLeft . $timeLeft->format('%d'). ' days';
+                }elseif($timeLeft->format('%d') == 1){
+                    $countDownTimeLeft = $countDownTimeLeft . $timeLeft->format('%d'). ' day';
+                }
+
+                return $countDownTimeLeft . ' left';
+                break;
+            case $timeLeft->format('%d') > 0:
+
+                $countDownTimeLeft = $timeLeft->format('%d');
+
+                if($timeLeft->format('%d') > 1){
+                    $countDownTimeLeft = $countDownTimeLeft.  ' days ';
+                }else{
+                    $countDownTimeLeft = $countDownTimeLeft.  ' day ';
+                }
+
+                if($timeLeft->format('%H') > 1){
+                    $countDownTimeLeft = $countDownTimeLeft . $timeLeft->format('%H'). ' hours';
+                }elseif($timeLeft->format('%H') == 1){
+                    $countDownTimeLeft = $countDownTimeLeft . $timeLeft->format('%H'). ' hour';
+                }
+
+                return ( $countDownTimeLeft . ' left');
+                break;
+            case $timeLeft->format('%H') > 0:
+                $countDownTimeLeft = $timeLeft->format('%H');
+
+                if($timeLeft->format('%H') > 1){
+                    $countDownTimeLeft = $countDownTimeLeft.  ' hours ';
+                }else{
+                    $countDownTimeLeft = $countDownTimeLeft.  ' hour ';
+                }
+
+                if($timeLeft->format('%i') > 1){
+                    $countDownTimeLeft = $countDownTimeLeft . $timeLeft->format('%i'). ' minutes';
+                }elseif($timeLeft->format('%i') == 1){
+                    $countDownTimeLeft = $countDownTimeLeft . $timeLeft->format('%i'). ' minute';
+                }
+
+
+                return ($countDownTimeLeft . ' left');
+                break;
+            case $timeLeft->format('%i') > 0:
+
+                $countDownTimeLeft = $timeLeft->format('%i');
+
+                if($timeLeft->format('%i') > 1){
+                    $countDownTimeLeft = $countDownTimeLeft.  ' minutes ';
+                }else{
+                    $countDownTimeLeft = $countDownTimeLeft.  ' minute ';
+                }
+
+                if($timeLeft->format('%s') > 1){
+                    $countDownTimeLeft = $countDownTimeLeft . $timeLeft->format('%s'). ' seconds';
+                }elseif($timeLeft->format('%s') == 1){
+                    $countDownTimeLeft = $countDownTimeLeft . $timeLeft->format('%s'). ' second';
+                }
+                return($countDownTimeLeft . ' left');
+                break;
+            case $timeLeft->format('%s') > 0:
+                return ($countDownTimeLeft = $timeLeft->format('%s') . ' seconds left');
+            default:
+                return '';
+        }
+    }
+
     /**
      * Example:
      *   wp_register_script('my-script', plugins_url('js/my-script.js', __FILE__), array('jquery'), '1.0', true);
