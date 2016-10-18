@@ -1,11 +1,11 @@
 <?php
 /*
-   Plugin Name: Countdown Timer
+   Plugin Name: Simple Countdown
    Plugin URI: https://github.com/PomeloProductions/countdown
    Version: 0.1.0
    Author: Pomelo Productions
    Description: 
-   Text Domain: countdown
+   Text Domain: simple-countdown
    License: GPLv3
   */
 
