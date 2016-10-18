@@ -44,7 +44,7 @@ class ShortCode extends ShortCodeLoader{
         return $collection->export();
     }
 
-    private function formatDate($timer){
+    private function formatDate(Timer $timer) {
         $endDate = new DateTime($timer->countdown_end_time);
         $currentDate = new DateTime("now");
         $timeLeft = $currentDate->diff($endDate);
@@ -146,7 +146,7 @@ class ShortCode extends ShortCodeLoader{
 
             case $timeLeft->format('%R%s') > 0:
                 return ($countDownTimeLeft = $timeLeft->format('%s') . ' seconds left');
-            
+
             default:
                 return '';
         }
