@@ -44,7 +44,13 @@ class ShortCode extends ShortCodeLoader{
         return $collection->export();
     }
 
-    private function formatDate(Timer $timer) {
+    /**
+     * Takes a timer object and returns the amount of time until the countdown timer expires as a human readable string
+     *
+     * @param $timer
+     * @return string
+     */
+    private function formatDate($timer){
         $endDate = new DateTime($timer->countdown_end_time);
         $currentDate = new DateTime("now");
         $timeLeft = $currentDate->diff($endDate);
@@ -67,8 +73,6 @@ class ShortCode extends ShortCodeLoader{
                 }
 
                 return ( $countDownTimeLeft . ' left');
-
-
             case $timeLeft->format('%R%m') > 0:
 
                 $countDownTimeLeft = $timeLeft->format('%m');
@@ -86,8 +90,6 @@ class ShortCode extends ShortCodeLoader{
                 }
 
                 return $countDownTimeLeft . ' left';
-
-
             case $timeLeft->format('%R%d') > 0:
 
                 $countDownTimeLeft = $timeLeft->format('%d');
@@ -105,8 +107,6 @@ class ShortCode extends ShortCodeLoader{
                 }
 
                 return ( $countDownTimeLeft . ' left');
-
-
             case $timeLeft->format('%R%H') > 0:
                 $countDownTimeLeft = $timeLeft->format('%H');
 
@@ -124,8 +124,6 @@ class ShortCode extends ShortCodeLoader{
 
 
                 return ($countDownTimeLeft . ' left');
-
-
             case $timeLeft->format('%R%i') > 0:
 
                 $countDownTimeLeft = $timeLeft->format('%i');
@@ -142,11 +140,8 @@ class ShortCode extends ShortCodeLoader{
                     $countDownTimeLeft = $countDownTimeLeft . $timeLeft->format('%s'). ' second';
                 }
                 return($countDownTimeLeft . ' left');
-
-
             case $timeLeft->format('%R%s') > 0:
                 return ($countDownTimeLeft = $timeLeft->format('%s') . ' seconds left');
-
             default:
                 return '';
         }
