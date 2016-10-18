@@ -105,16 +105,16 @@ class ShortCode extends ShortCodeLoader{
                 }
 
                 if($timeLeft->format('%H') > 1){
-                    $countDownTimeLeft.= $timeLeft->format('%H'). ' hours';
+                    $countDownTimeLeft.= $timeLeft->format('%h'). ' hours';
                 }elseif($timeLeft->format('%H') == 1){
-                    $countDownTimeLeft.= $timeLeft->format('%H'). ' hour';
+                    $countDownTimeLeft.= $timeLeft->format('%h'). ' hour';
                 }
 
                 return $countDownTimeLeft;
 
 
             case $timeLeft->format('%R%H') > 0:
-                $countDownTimeLeft = $timeLeft->format('%H');
+                $countDownTimeLeft = $timeLeft->format('%h');
 
                 if($timeLeft->format('%H') > 1){
                     $countDownTimeLeft.= ' hours ';
