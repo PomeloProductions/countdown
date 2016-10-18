@@ -55,21 +55,21 @@ class ShortCode extends ShortCodeLoader{
         $currentDate = new DateTime("now");
         $timeLeft = $currentDate->diff($endDate);
 
-        switch($timeLeft){
+        switch(true){
             case $timeLeft->format('%R%y') > 0:
 
                 $countDownTimeLeft = $timeLeft->format('%y') . ' year';
 
                 if($timeLeft->format('%m') > 1){
-                    $countDownTimeLeft = $countDownTimeLeft. ' '.  $timeLeft->format('%m') .' months ';
+                    $countDownTimeLeft.= $countDownTimeLeft. ' '.  $timeLeft->format('%m') .' months ';
                 }elseif($timeLeft->format('%m') == 1){
-                    $countDownTimeLeft = $countDownTimeLeft. ' '.  $timeLeft->format('%m') .  ' month ';
+                    $countDownTimeLeft.= $countDownTimeLeft. ' '.  $timeLeft->format('%m') .  ' month ';
                 }
 
                 if($timeLeft->format('%d') > 1){
-                    $countDownTimeLeft = $countDownTimeLeft . $timeLeft->format('%d'). ' days';
+                    $countDownTimeLeft.= $countDownTimeLeft . $timeLeft->format('%d'). ' days';
                 }elseif($timeLeft->format('%d') == 1){
-                    $countDownTimeLeft = $countDownTimeLeft . $timeLeft->format('%d'). ' day';
+                    $countDownTimeLeft.= $countDownTimeLeft . $timeLeft->format('%d'). ' day';
                 }
 
                 return ( $countDownTimeLeft . ' left');
@@ -80,15 +80,15 @@ class ShortCode extends ShortCodeLoader{
                 $countDownTimeLeft = $timeLeft->format('%m');
 
                 if($timeLeft->format('%m') > 1){
-                    $countDownTimeLeft = $countDownTimeLeft.  ' months ';
+                    $countDownTimeLeft.= $countDownTimeLeft.  ' months ';
                 }else{
-                    $countDownTimeLeft = $countDownTimeLeft.  ' month ';
+                    $countDownTimeLeft.= $countDownTimeLeft.  ' month ';
                 }
 
                 if($timeLeft->format('%d') > 1){
-                    $countDownTimeLeft = $countDownTimeLeft . $timeLeft->format('%d'). ' days';
+                    $countDownTimeLeft.= $countDownTimeLeft . $timeLeft->format('%d'). ' days';
                 }elseif($timeLeft->format('%d') == 1){
-                    $countDownTimeLeft = $countDownTimeLeft . $timeLeft->format('%d'). ' day';
+                    $countDownTimeLeft.= $countDownTimeLeft . $timeLeft->format('%d'). ' day';
                 }
 
                 return $countDownTimeLeft . ' left';
@@ -99,15 +99,15 @@ class ShortCode extends ShortCodeLoader{
                 $countDownTimeLeft = $timeLeft->format('%d');
 
                 if($timeLeft->format('%d') > 1){
-                    $countDownTimeLeft = $countDownTimeLeft.  ' days ';
+                    $countDownTimeLeft.= $countDownTimeLeft.  ' days ';
                 }else{
-                    $countDownTimeLeft = $countDownTimeLeft.  ' day ';
+                    $countDownTimeLeft.= $countDownTimeLeft.  ' day ';
                 }
 
                 if($timeLeft->format('%H') > 1){
-                    $countDownTimeLeft = $countDownTimeLeft . $timeLeft->format('%H'). ' hours';
+                    $countDownTimeLeft.= $countDownTimeLeft . $timeLeft->format('%H'). ' hours';
                 }elseif($timeLeft->format('%H') == 1){
-                    $countDownTimeLeft = $countDownTimeLeft . $timeLeft->format('%H'). ' hour';
+                    $countDownTimeLeft.= $countDownTimeLeft . $timeLeft->format('%H'). ' hour';
                 }
 
                 return ( $countDownTimeLeft . ' left');
@@ -117,15 +117,15 @@ class ShortCode extends ShortCodeLoader{
                 $countDownTimeLeft = $timeLeft->format('%H');
 
                 if($timeLeft->format('%H') > 1){
-                    $countDownTimeLeft = $countDownTimeLeft.  ' hours ';
+                    $countDownTimeLeft.= $countDownTimeLeft.  ' hours ';
                 }else{
-                    $countDownTimeLeft = $countDownTimeLeft.  ' hour ';
+                    $countDownTimeLeft.= $countDownTimeLeft.  ' hour ';
                 }
 
                 if($timeLeft->format('%i') > 1){
-                    $countDownTimeLeft = $countDownTimeLeft . $timeLeft->format('%i'). ' minutes';
+                    $countDownTimeLeft.= $countDownTimeLeft . $timeLeft->format('%i'). ' minutes';
                 }elseif($timeLeft->format('%i') == 1){
-                    $countDownTimeLeft = $countDownTimeLeft . $timeLeft->format('%i'). ' minute';
+                    $countDownTimeLeft.= $countDownTimeLeft . $timeLeft->format('%i'). ' minute';
                 }
 
 
@@ -137,15 +137,15 @@ class ShortCode extends ShortCodeLoader{
                 $countDownTimeLeft = $timeLeft->format('%i');
 
                 if($timeLeft->format('%i') > 1){
-                    $countDownTimeLeft = $countDownTimeLeft.  ' minutes ';
+                    $countDownTimeLeft.= $countDownTimeLeft.  ' minutes ';
                 }else{
-                    $countDownTimeLeft = $countDownTimeLeft.  ' minute ';
+                    $countDownTimeLeft.= $countDownTimeLeft.  ' minute ';
                 }
 
                 if($timeLeft->format('%s') > 1){
-                    $countDownTimeLeft = $countDownTimeLeft . $timeLeft->format('%s'). ' seconds';
+                    $countDownTimeLeft.= $countDownTimeLeft . $timeLeft->format('%s'). ' seconds';
                 }elseif($timeLeft->format('%s') == 1){
-                    $countDownTimeLeft = $countDownTimeLeft . $timeLeft->format('%s'). ' second';
+                    $countDownTimeLeft.= $countDownTimeLeft . $timeLeft->format('%s'). ' second';
                 }
                 return($countDownTimeLeft . ' left');
 
@@ -153,7 +153,7 @@ class ShortCode extends ShortCodeLoader{
             case $timeLeft->format('%R%s') > 0:
                 return ($countDownTimeLeft = $timeLeft->format('%s') . ' seconds left');
 
-            
+
             default:
                 return '';
         }
