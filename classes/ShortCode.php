@@ -73,6 +73,8 @@ class ShortCode extends ShortCodeLoader{
                 }
 
                 return ( $countDownTimeLeft . ' left');
+
+
             case $timeLeft->format('%R%m') > 0:
 
                 $countDownTimeLeft = $timeLeft->format('%m');
@@ -90,6 +92,8 @@ class ShortCode extends ShortCodeLoader{
                 }
 
                 return $countDownTimeLeft . ' left';
+
+
             case $timeLeft->format('%R%d') > 0:
 
                 $countDownTimeLeft = $timeLeft->format('%d');
@@ -107,6 +111,8 @@ class ShortCode extends ShortCodeLoader{
                 }
 
                 return ( $countDownTimeLeft . ' left');
+
+
             case $timeLeft->format('%R%H') > 0:
                 $countDownTimeLeft = $timeLeft->format('%H');
 
@@ -124,6 +130,8 @@ class ShortCode extends ShortCodeLoader{
 
 
                 return ($countDownTimeLeft . ' left');
+
+
             case $timeLeft->format('%R%i') > 0:
 
                 $countDownTimeLeft = $timeLeft->format('%i');
@@ -140,8 +148,12 @@ class ShortCode extends ShortCodeLoader{
                     $countDownTimeLeft = $countDownTimeLeft . $timeLeft->format('%s'). ' second';
                 }
                 return($countDownTimeLeft . ' left');
+
+
             case $timeLeft->format('%R%s') > 0:
                 return ($countDownTimeLeft = $timeLeft->format('%s') . ' seconds left');
+
+            
             default:
                 return '';
         }
