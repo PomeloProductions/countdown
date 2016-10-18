@@ -2,7 +2,7 @@
 /*
    Plugin Name: Simple Countdown
    Plugin URI: https://github.com/PomeloProductions/countdown
-   Version: 0.1.0
+   Version: 0.2.0
    Author: Pomelo Productions
    Description: 
    Text Domain: simple-countdown
