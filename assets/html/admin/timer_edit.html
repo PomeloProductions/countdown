@@ -1,0 +1,13 @@
+<form method="post" action="admin.php?page=countdown&task={{task}}{{id}}">
+    <div>
+        <label for="title">Title:</label>
+        <input class="text_area" type="text" id="title" name="title" value="{{title}}">
+    </div>
+    <div>
+        <label for="timer">Countdown End Time:</label>
+        <input class="text_area" type="datetime-local" id="countdown-end" name="timer" value="{{countdown_end_time}}">
+    </div>
+
+    <input type="hidden" value="{{action}}" name="action"/>
+    <input type="submit" value="Save Entry" id="save-buttom" class="button button-primary button-large">
+</form>
