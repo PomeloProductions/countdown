@@ -53,31 +53,12 @@ class Edit extends TaskController{
 
         if (isset($_POST["title"]))
             $this->timer->title = $_POST["title"];
-        if (isset($_POST["subtitle"]))
-            $this->timer->subtitle = $_POST["subtitle"];
-        if (isset($_POST["above_timers"]))
-            $this->timer->top_content = $_POST["above_timers"];
-        if (isset($_POST["below_timers"]))
-            $this->timer->bottom_content = $_POST["below_timers"];
-        if (isset($_POST["template"]))
-            $this->timer->setTemplate($_POST["template"]);
-        if (isset($_POST["parent"]) && $_POST["parent"] != "")
-            $this->timer->parent_id = $_POST["parent"];
-
-        if (isset($_POST["using_post"]))
-            $this->timer->using_post = $_POST["using_post"] == "on";
-        else
-            $this->timer->using_post = false;
-
-        if (isset($_POST["post_id"]))
-            $this->timer->post_id = $_POST["post_id"];
+        if (isset($_POST["timer"]))
+            $this->timer->countdown_end_time = $_POST["timer"];
 
         $this->timer->save();
 
-        if ($this->timer->getParent())
-            header("Location: admin.php?page=countdown&task=edit_timer&id=" . $this->timer->getParent()->id);
-        else
-            header("Location: admin.php?page=countdown&task=view_timers");
+        header("Location: admin.php?page=countdown&task=view_timers");
     }
 
     /**
@@ -89,157 +70,33 @@ class Edit extends TaskController{
 
         $view->setTemplateVar("task", $this->task->getSlug());
 
-        $view->setTemplateVar("available_templates", $this->renderAvailableTemplates());
-        $view->setTemplateVar("available_posts", $this->renderAvailablePosts());
-
         $title = "";
-        $subtitle = "";
+        $countdownTimer = "";
         $id = "";
-        $aboveTimers = "";
-        $belowTimers = "";
-        $usingPost = false;
-        $postSelectDisplay = "none";
-        $contentEditingDisplay = "block";
-        $usingPostDisplay = "block";
-
-        $childrenTimers = [];
-
-        $parent = null;
 
         if(isset($this->timer)) {
             $title = $this->timer->title;
-            $subtitle = $this->timer->subtitle;
+            $countdownTimer = $this->timer->countdown_end_time;
+            $countdownTimer = str_replace(' ','T', $countdownTimer);
             $id = "&id=" . $this->timer->id;
-            $aboveTimers = $this->timer->top_content;
-            $belowTimers = $this->timer->bottom_content;
-            $usingPost = $this->timer->using_post;
-
-            $childrenTimers = $this->timer->getChildren();
-
-            if($this->timer->getParent())
-                $parent = $this->timer->getParent()->id;
         }
 
         if(isset($_POST["title"]))
             $title = $_POST["title"];
-        if(isset($_POST["subtitle"]))
-            $subtitle = $_POST["subtitle"];
-        if(isset($_POST["above_timers"]))
-            $aboveTimers = $_POST["above_timers"];
-        if(isset($_POST["below_timers"]))
-            $belowTimers = $_POST["below_timers"];
-        if (isset($_POST["using_post"]))
-            $usingPost = $_POST["using_post"] == "on";
-
-        if ($usingPost) {
-            $postSelectDisplay = "block";
-            $contentEditingDisplay = "none";
+        if(isset($_POST["countdown_end_time"])){
+            $countdownTimer = $_POST["countdown_end_time"];
+            $countdownTimer = str_replace(' ','T', $countdownTimer);
         }
-
-        if (isset($this->timer) && $this->timer->template == "nested") {
-            $usingPostDisplay = "none";
-            $postSelectDisplay = "none";
-            $contentEditingDisplay = "none";
-        }
-
-        if(isset($_GET["parent_id"]) && $_GET["parent_id"])
-            $parent = $_GET["parent_id"];
-
-        $view->setTemplateVar("using_post", $usingPost ? "checked" : "");
-
-        $view->setTemplateVar("post_select_display", $postSelectDisplay);
-        $view->setTemplateVar("content_editing_visibility", $contentEditingDisplay);
-        $view->setTemplateVar("using_post_visibility", $usingPostDisplay);
 
         $view->setTemplateVar("title", $title);
-        $view->setTemplateVar("subtitle", $subtitle);
+        $view->setTemplateVar("countdown_end_time", $countdownTimer);
+
         $view->setTemplateVar("id", $id);
 
-        $aboveEditor = new Editor($this->lifeCycle, "above_timers", $aboveTimers, "Above Children Timers");
-        $aboveEditor->setHeight(200);
-        $view->setTemplateVar("above_timers", $aboveEditor->export());
-
-        $belowEditor = new Editor($this->lifeCycle, "below_timers", $belowTimers, "Below Children Timers");
-        $belowEditor->setHeight(200);
-        $view->setTemplateVar("below_timers", $belowEditor->export());
-
-        $timersContainer = new CountdownTimerContainer($this->lifeCycle, $childrenTimers, $this->timer);
-        $view->setTemplateVar("timers", $timersContainer->export());
-
         $view->setTemplateVar("action", $this->action);
-        if($parent)
-            $view->setTemplateVar("parent", $parent);
 
         return $view->export();
 
-    }
-
-    /**
-     * creates the html for the select options of available templates
-     * @return string options available
-     */
-    private function renderAvailableTemplates() {
-
-        $availableTemplates = Timer::$availableTemplates;
-        $selectedTemplate = "simple";
-        $optionsContent = "";
-
-        if (isset($this->timer))
-            $selectedTemplate = $this->timer->getTemplate();
-        if (isset($_POST["template"]))
-            $selectedTemplate = $_POST["template"];
-
-        if (!in_array($selectedTemplate, $availableTemplates))
-            $selectedTemplate = "simple";
-
-        foreach ($availableTemplates as $template) {
-
-            $optionsContent.= "<option ". ($template == $selectedTemplate ? "selected" : "")
-                ." value='" . $template ."'>" . $template . "</option>";
-        }
-
-        return $optionsContent;
-    }
-
-    /**
-     * creates the html for the select options of available templates
-     * @return string options available
-     */
-    private function renderAvailablePosts() {
-
-        $args = [
-            'post_type' => ['post', 'page'],
-            'nopaging' => true,
-            'orderby' => 'title',
-            'order' => 'ASC',
-        ];
-
-        $query = new WP_Query($args);
-
-        $posts = $query->get_posts();
-
-        $availablePosts = [];
-
-        foreach ($posts as $post) {
-            $availablePosts[$post->ID] = $post->post_title;
-        }
-
-        $selectedPost = 0;
-        $optionsContent = "";
-
-        if (isset($this->timer))
-            $selectedPost = $this->timer->post_id;
-        if (isset($_POST["post_id"]))
-            $selectedPost = $_POST["post_id"];
-
-
-        foreach ($availablePosts as $id => $title) {
-
-            $optionsContent.= "<option ". ($id == $selectedPost ? "selected" : "")
-                ." value='" . $id ."'>" . $title . "</option>";
-        }
-
-        return $optionsContent;
     }
 
     /**
