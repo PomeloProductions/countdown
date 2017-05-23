@@ -35,9 +35,26 @@ class Timer extends BaseModel{
     public $countdown_end_time;
 
     /**
+     * @var datetime the date when the countdown timer was deleted
+     */
+    public $deleted_at = null;
+
+    /**
      * @var array $dateTimeFields overrides parent $dateTimeFields with countdown timer
      */
-    protected $dateTimeFields = ["countdown_end_time"];
+    protected $dateTimeFields = ["countdown_end_time", "deleted_at"];
+
+    /**
+     * @var array $availableTemplates the mustache templates for this plugins admin section
+     */
+    public static $availableTemplates = [
+        "edit"
+    ];
+
+    /**
+     * @var string the template the user has chosen
+     */
+    public $template = "edit";
 
     /**
      * Overwrite this in your concrete class. Returns the table name used to
@@ -68,8 +85,20 @@ class Timer extends BaseModel{
         return [
             "title" => "TEXT",
             "subtitle" => "TEXT",
-            "countdown_end_time" => "DATETIME"
+            "countdown_end_time" => "DATETIME",
+            "deleted_at" => "DATETIME"
         ];
+    }
+
+    /**
+     * @return string the template attached to this timer
+     */
+    public function getTemplate() {
+
+        if ($this->template)
+            return $this->template;
+
+        return "edit";
     }
 
 }
