@@ -26,6 +26,46 @@
         "className" : "Model\\Timer"
       }
     ],
+    "Admin" : {
+      "RequiredAssets" : [
+        {
+          "type" : "css",
+          "name" : "admin"
+        }, {
+          "type" : "js",
+          "name" : "admin"
+        }
+      ],
+      "Page" : [
+        {
+          "name" : "Countdown",
+          "icon" : "dashicons-carrot",
+          "capability" : "manage_options",
+          "position" : 20,
+          "Task" : [
+            {
+              "name" : "View Timers",
+              "className" : "\\Admin\\ViewTimers",
+              "default" : true
+            },
+            {
+              "name" : "Edit Timer",
+              "className" : "\\Admin\\Edit",
+              "actions" : ["edit"]
+            },
+            {
+              "name" : "Create Timer",
+              "className" : "\\Admin\\Create",
+              "actions" : ["create"]
+            },
+            {
+              "name" : "Delete",
+              "className" : "\\Admin\\Delete"
+            }
+          ]
+        }
+      ]
+    },
     "optionsPrefix" : "countdown"
   }
 }
