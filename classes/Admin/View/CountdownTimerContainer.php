@@ -23,7 +23,7 @@ class CountdownTimerContainer extends ViewCollection {
         parent::__construct($lifeCycle, "countdown_container");
 
         foreach($countdowns as $countdown) {
-            $view = new CountdownTimerTR($this->lifeCycle, $countdown->id, $countdown->title);
+            $view = new CountdownTimerTR($this->lifeCycle, $countdown->id, $countdown->title, $countdown->countdown_end_time);
 
             //looks like it's just adding the child view to the parent, shouldn't be crazy.
             $this->addChildView("countdown", $view);
