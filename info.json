@@ -1,6 +1,8 @@
 {
   "pluginName" : "countdown",
   "rootNameSpace" : "Countdown",
+  "displayName" : "Simple Countdown",
+  "minPHPVersion" : "7.0.0",
   "LifeCycle" : {
     "className" : "Plugin",
     "AssetLocation" : [

@@ -45,7 +45,7 @@ class Plugin extends LifeCycle {
     }
 
     protected function getPluginDir() {
-        return dirname(__FILE__);
+        return dirname(__DIR__);
     }
 
     /**
