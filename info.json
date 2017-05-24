@@ -41,7 +41,7 @@
       "Page" : [
         {
           "name" : "Countdown",
-          "icon" : "dashicons-carrot",
+          "icon" : "dashicons-clock",
           "capability" : "manage_options",
           "position" : 20,
           "Task" : [
