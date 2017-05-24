@@ -40,9 +40,6 @@ class Plugin extends LifeCycle {
         return 'Countdown Timer';
     }
 
-    protected function getMainPluginFileName() {
-        return 'timer.php';
-    }
 
     protected function getPluginDir() {
         return dirname(__DIR__);
